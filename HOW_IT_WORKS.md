@@ -50,7 +50,7 @@ project-brief-enterprise-ai-assistant/
 ├── vector_store.py           connects to Pinecone (or Chroma)
 ├── ingest.py                 PDFs → chunks → embeddings → Pinecone
 ├── config.py                 all settings in one place
-├── app.py                    Streamlit prototype (local only, handy for quick tests)
+├── streamlit_app.py          Streamlit prototype (local only, handy for quick tests)
 ├── requirements.txt          backend packages (what Vercel installs)
 ├── requirements-dev.txt      + packages for ingestion and Streamlit (local work)
 ├── vercel.json               tells Vercel how to build the frontend and run the backend
@@ -163,7 +163,7 @@ Requests to `/api/...` are forwarded to the backend on port 8000 (see `vite.conf
 
 Stop either one with `Ctrl + C`.
 
-> Quick alternatives without the React app: `streamlit run app.py` (simple browser UI) or
+> Quick alternatives without the React app: `streamlit run streamlit_app.py` (simple browser UI) or
 > `python rag.py` (chat in the terminal).
 
 ### Common problems
@@ -183,21 +183,47 @@ Stop either one with `Ctrl + C`.
 
 ### How Vercel runs this project
 
-One Vercel project serves both parts from the same URL:
+The project uses **Vercel Services**: one Vercel project that contains two separate apps
+(a frontend and a backend), served from the same URL:
 
 ```
-https://your-app.vercel.app/            ──▶  frontend/dist/  (static files built by Vite)
-https://your-app.vercel.app/api/chat    ──▶  api/index.py    (Python serverless function)
+https://your-app.vercel.app/            ──▶  "frontend" service: React app in frontend/ (built by Vite)
+https://your-app.vercel.app/api/chat    ──▶  "backend" service:  FastAPI app in api/index.py
 ```
 
-`vercel.json` tells Vercel how:
+`vercel.json` defines the two services and routes requests to them:
 
-| Setting | What it does |
+```json
+{
+  "services": {
+    "backend":  { "root": ".",         "framework": "fastapi", "entrypoint": "api.index:app" },
+    "frontend": { "root": "frontend/", "framework": "vite" }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": { "service": "backend" } },
+    { "source": "/(.*)",     "destination": { "service": "frontend" } }
+  ]
+}
+```
+
+| Part | What it means |
 |---|---|
-| `installCommand` / `buildCommand` | Installs and builds the React app in `frontend/` |
-| `outputDirectory` | Serves the built files from `frontend/dist` |
-| `rewrites` | Sends every `/api/...` request to the FastAPI function |
-| `functions.maxDuration` | Lets a request run up to 60 s (an answer usually takes 3–10 s) |
+| `backend.root: "."` | The backend uses the project folder, because it needs `rag.py`, `config.py`, ... next to `api/` |
+| `backend.entrypoint: "api.index:app"` | "The FastAPI object called `app` in `api/index.py`" |
+| `frontend.root: "frontend/"` | Vercel builds the React app inside `frontend/` (`npm install` + `npm run build`) |
+| `rewrites` | Checked from top to bottom: `/api/...` goes to FastAPI, everything else to React. The backend sees the full path (`/api/chat`), which is why the FastAPI routes start with `/api` |
+
+> **Why the Streamlit file is called `streamlit_app.py`:** Vercel automatically treats a file named
+> `app.py` in the root as a FastAPI app. If the Streamlit prototype were named `app.py`, Vercel
+> would try to run it as the backend and fail.
+
+**Test the Vercel setup locally before pushing.** `vercel dev` runs both services behind
+Vercel's router, exactly as in production (`-L` means no Vercel login is needed):
+
+```bash
+source .venv/bin/activate          # so the backend uses your installed packages
+npx vercel@latest dev -L           # → http://localhost:3000
+```
 
 For the Python function, Vercel installs `requirements.txt`. That file holds only what the backend
 needs. Ingestion and Streamlit packages live in `requirements-dev.txt`, which keeps the function
@@ -221,8 +247,11 @@ in Pinecone.
 1. Go to https://vercel.com/new and sign in with GitHub.
 2. **Import** your repository.
 3. On the configuration screen:
-   - **Framework Preset:** leave it as Vercel shows it. `vercel.json` sets everything.
-   - **Root Directory:** leave as `./` (the folder containing `vercel.json`).
+   - **Root Directory:** keep the **repository root** selected, *not* `frontend`. Only the root
+     contains `vercel.json` and both services. Choosing `frontend` would deploy the page without
+     the backend.
+   - Vercel should show it as a multi-service project with **backend (FastAPI)** and
+     **frontend (Vite)**. If it suggests its own `vercel.json`, ignore it: ours is already in the repo.
    - **Environment Variables:** add both keys:
      | Name | Value |
      |---|---|

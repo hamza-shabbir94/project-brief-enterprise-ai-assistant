@@ -1,7 +1,7 @@
 """
 STEP 3: a chat interface in the browser.
 
-    streamlit run app.py
+    streamlit run streamlit_app.py
 """
 
 import streamlit as st
