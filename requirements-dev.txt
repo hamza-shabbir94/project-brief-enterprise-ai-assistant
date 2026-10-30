@@ -1,0 +1,9 @@
+# Everything for local work: the backend + ingestion + the Streamlit prototype.
+-r requirements.txt
+uvicorn
+langchain-community
+langchain-text-splitters
+pypdf
+streamlit
+# Only needed if VECTOR_STORE = "chroma" in config.py:
+# langchain-chroma

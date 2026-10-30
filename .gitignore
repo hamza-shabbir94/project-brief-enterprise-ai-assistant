@@ -1,0 +1,9 @@
+.venv/
+.env
+.vercel/
+chroma_db/
+__pycache__/
+node_modules/
+dist/
+.DS_Store
+__MACOSX/

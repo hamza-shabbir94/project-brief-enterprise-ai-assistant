@@ -1,0 +1,6 @@
+# Backend (what Vercel installs). Kept small so the serverless function stays light.
+fastapi
+langchain-core
+langchain-openai
+langchain-pinecone
+python-dotenv

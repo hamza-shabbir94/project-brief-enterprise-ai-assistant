@@ -1,0 +1,10 @@
+# Not needed online: local environment, raw PDFs (already in Pinecone),
+# the local Chroma store and the Streamlit prototype.
+.venv
+__pycache__
+chroma_db
+documents
+app.py
+project-intro.png
+frontend/node_modules
+frontend/dist
