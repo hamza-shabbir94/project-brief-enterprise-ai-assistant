@@ -38,6 +38,22 @@ CHUNK_OVERLAP = 200
 # --- Retrieval -----------------------------------------------------------
 TOP_K = 6                                    # how many chunks to give the LLM
 
+# Chunks less similar than this (cosine similarity, 0-1) are dropped. In this
+# data, related chunks score ~0.45-0.65 and off-topic questions ("What is the
+# capital of France?") ~0.2. If nothing passes, the assistant says it couldn't
+# find the answer instead of letting the LLM guess from unrelated text.
+# Run `python -m evaluation.evaluate` after changing it.
+MIN_RELEVANCE = 0.30
+
+# --- Conversation memory -------------------------------------------------
+# How many previous messages (questions + answers) are used to understand
+# follow-up questions like "and for contractors?".
+HISTORY_MESSAGES = 6
+
+# --- Evaluation ----------------------------------------------------------
+# A stronger model grades the assistant's answers (LLM-as-a-judge).
+JUDGE_MODEL = "gpt-4o"
+
 # --- Data quality --------------------------------------------------------
 # Documents last reviewed before this year are treated as outdated and
 # left out of answers (e.g. the 2021 product catalog).

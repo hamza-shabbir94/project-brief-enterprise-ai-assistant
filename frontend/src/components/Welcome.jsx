@@ -15,7 +15,7 @@ export default function Welcome({ onPick }) {
       <h1>How can I help today?</h1>
       <p className="welcome-sub">
         Ask about company policies, procedures or products. Every answer links to the internal
-        documents it comes from.
+        documents it comes from, and you can ask follow-up questions.
       </p>
       <div className="examples">
         {EXAMPLES.map((example) => (

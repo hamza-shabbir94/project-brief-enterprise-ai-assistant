@@ -1,0 +1,1427 @@
+{
+  "timestamp": "20261103-171937",
+  "judge": true,
+  "filters": {
+    "category": null,
+    "ids": null
+  },
+  "config": {
+    "VECTOR_STORE": "pinecone",
+    "CHAT_MODEL": "gpt-4o-mini",
+    "EMBEDDING_MODEL": "text-embedding-3-small",
+    "JUDGE_MODEL": "gpt-4o",
+    "TOP_K": 6,
+    "MIN_RELEVANCE": 0.3,
+    "CHUNK_SIZE": 1200,
+    "CHUNK_OVERLAP": 200,
+    "HISTORY_MESSAGES": 6
+  },
+  "summary": {
+    "cases": 26,
+    "errors": 0,
+    "pass_rate": 1.0,
+    "retrieval_hit": 1.0,
+    "mrr": 0.941,
+    "keyword_recall": 1.0,
+    "refusal_accuracy": 1.0,
+    "citation_rate": 0.955,
+    "rouge_l": 0.541,
+    "semantic_similarity": 0.806,
+    "correctness": 4.962,
+    "grounded": 1.0,
+    "avg_latency_s": 1.636,
+    "by_category": {
+      "discontinued": {
+        "cases": 2,
+        "passed": 2
+      },
+      "follow_up": {
+        "cases": 3,
+        "passed": 3
+      },
+      "out_of_scope": {
+        "cases": 3,
+        "passed": 3
+      },
+      "outdated": {
+        "cases": 1,
+        "passed": 1
+      },
+      "policy": {
+        "cases": 15,
+        "passed": 15
+      },
+      "product": {
+        "cases": 2,
+        "passed": 2
+      }
+    },
+    "lowest_top_score_answerable": 0.391,
+    "highest_top_score_unanswerable": 0.563
+  },
+  "results": [
+    {
+      "id": "hr-remote-office-days",
+      "category": "policy",
+      "question": "How many days per week are hybrid employees expected to be in the office?",
+      "search_query": "How many days per week are hybrid employees expected to be in the office?",
+      "answer": "Most eligible hybrid employees are expected to attend their designated office an average of two days per week. Teams may set a higher attendance requirement during peak trading periods, operational changes, or major projects [1].",
+      "retrieved": [
+        {
+          "title": "Remote Work Policy",
+          "page": 2,
+          "score": 0.647
+        },
+        {
+          "title": "Employee Handbook",
+          "page": 2,
+          "score": 0.583
+        },
+        {
+          "title": "Remote Work Policy",
+          "page": 6,
+          "score": 0.519
+        },
+        {
+          "title": "Remote Work Policy",
+          "page": 2,
+          "score": 0.491
+        },
+        {
+          "title": "Remote Work Policy",
+          "page": 3,
+          "score": 0.488
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 3,
+          "score": 0.469
+        }
+      ],
+      "top_score": 0.647,
+      "latency_s": 3.48,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.971,
+      "semantic_similarity": 0.985,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states that hybrid employees are expected to attend the office an average of two days per week and mentions the possibility of higher requirements during certain periods, matching the reference answer. All information is supported by the retrieved source [1]."
+    },
+    {
+      "id": "hr-remote-core-hours",
+      "category": "policy",
+      "question": "What are the core hours for remote employees?",
+      "search_query": "What are the core hours for remote employees?",
+      "answer": "The core hours for remote employees are 10:00–15:00 local time, Monday to Friday, unless an alternative schedule is approved [1].",
+      "retrieved": [
+        {
+          "title": "Remote Work Policy",
+          "page": 2,
+          "score": 0.665
+        },
+        {
+          "title": "Employee Handbook",
+          "page": 2,
+          "score": 0.588
+        },
+        {
+          "title": "Remote Work Policy",
+          "page": 4,
+          "score": 0.547
+        },
+        {
+          "title": "Remote Work Policy",
+          "page": 3,
+          "score": 0.546
+        },
+        {
+          "title": "Remote Work Policy",
+          "page": 2,
+          "score": 0.539
+        },
+        {
+          "title": "Remote Work Policy",
+          "page": 6,
+          "score": 0.512
+        }
+      ],
+      "top_score": 0.665,
+      "latency_s": 3.24,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.545,
+      "semantic_similarity": 0.75,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states the core hours for remote employees as 10:00–15:00 local time, Monday to Friday, which matches the reference answer. It also mentions that an alternative schedule can be approved, which is consistent with the retrieved sources. All information is grounded in the provided documents."
+    },
+    {
+      "id": "hr-leave-where",
+      "category": "policy",
+      "question": "How do I request time off?",
+      "search_query": "How do I request time off?",
+      "answer": "To request time off, follow these steps:\n\n1. **Submit Request through PeopleHub**:\n   - For annual leave:\n     - At least 10 calendar days before leave of one to five working days.\n     - At least 20 calendar days before leave exceeding five working days.\n   - For unpaid leave:\n     - At least 20 calendar days in advance, stating:\n       - Requested dates.\n       - Reason (if comfortable).\n       - Impact on work and proposed handover.\n       - Any planned return date.\n\n2. **Manager Approval**:\n   - Your manager must approve or reject the request promptly.\n   - They should respond within five working days.\n\n3. **Considerations**:\n   - Approval depends on operational coverage, customer commitments, fulfilment schedules, and previously approved leave.\n   - Managers may propose alternative dates if multiple requests are made for the same period.\n\nMake sure to check your leave balance in PeopleHub and report any errors within 10 working days [4][5][2].",
+      "retrieved": [
+        {
+          "title": "Leave and Absence Policy",
+          "page": 3,
+          "score": 0.529
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 5,
+          "score": 0.523
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 4,
+          "score": 0.521
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 2,
+          "score": 0.517
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 2,
+          "score": 0.505
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 4,
+          "score": 0.483
+        }
+      ],
+      "top_score": 0.529,
+      "latency_s": 4.72,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.276,
+      "semantic_similarity": 0.733,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly outlines the process for requesting time off, including using PeopleHub and the required advance notice for different types of leave. It also mentions the need for manager approval and considerations for approval, which aligns with the reference. All information is supported by the retrieved sources."
+    },
+    {
+      "id": "hr-leave-notice-long",
+      "category": "policy",
+      "question": "How much notice do I need to give for annual leave longer than five working days?",
+      "search_query": "How much notice do I need to give for annual leave longer than five working days?",
+      "answer": "You need to submit annual leave requests for leave exceeding five working days at least 20 calendar days in advance [1].",
+      "retrieved": [
+        {
+          "title": "Leave and Absence Policy",
+          "page": 2,
+          "score": 0.604
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 2,
+          "score": 0.569
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 4,
+          "score": 0.547
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 3,
+          "score": 0.538
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 4,
+          "score": 0.537
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 1,
+          "score": 0.522
+        }
+      ],
+      "top_score": 0.604,
+      "latency_s": 3.32,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.7,
+      "semantic_similarity": 0.834,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states that requests for leave exceeding five working days must be submitted at least 20 calendar days in advance, which matches the reference answer. The information is directly supported by the retrieved source [1]."
+    },
+    {
+      "id": "hr-leave-manager-response",
+      "category": "policy",
+      "question": "How quickly should a manager respond to an annual leave request?",
+      "search_query": "How quickly should a manager respond to an annual leave request?",
+      "answer": "A manager should respond to an annual leave request within five working days. Approval depends on operational coverage, customer commitments, fulfilment schedules, and previously approved leave [1][2][4].",
+      "retrieved": [
+        {
+          "title": "Leave and Absence Policy",
+          "page": 2,
+          "score": 0.672
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 2,
+          "score": 0.666
+        },
+        {
+          "title": "Employee Handbook",
+          "page": 3,
+          "score": 0.561
+        },
+        {
+          "title": "Employee Handbook",
+          "page": 3,
+          "score": 0.544
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 1,
+          "score": 0.544
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 3,
+          "score": 0.541
+        }
+      ],
+      "top_score": 0.672,
+      "latency_s": 1.06,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.45,
+      "semantic_similarity": 0.874,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states that managers should respond to annual leave requests within five working days, which matches the reference answer. The additional details about approval considerations are accurate and supported by the sources."
+    },
+    {
+      "id": "fin-expense-deadline",
+      "category": "policy",
+      "question": "What is the deadline for submitting an expense claim?",
+      "search_query": "What is the deadline for submitting an expense claim?",
+      "answer": "The deadline for submitting an expense claim is within 30 calendar days of the expense date. Month-end claims should be submitted by the third working day of the following month. Claims submitted more than 90 days late require Finance Director approval [1][2].",
+      "retrieved": [
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 5,
+          "score": 0.556
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 5,
+          "score": 0.509
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 4,
+          "score": 0.451
+        },
+        {
+          "title": "Employee Handbook",
+          "page": 4,
+          "score": 0.448
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 1,
+          "score": 0.419
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 2,
+          "score": 0.412
+        }
+      ],
+      "top_score": 0.556,
+      "latency_s": 1.14,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.762,
+      "semantic_similarity": 0.864,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states the deadlines for submitting expense claims, including the 30-day rule, the month-end submission by the third working day of the following month, and the requirement for Finance Director approval for claims more than 90 days late. All these details are supported by the retrieved sources."
+    },
+    {
+      "id": "fin-dinner-limit",
+      "category": "policy",
+      "question": "What is the maximum I can claim for dinner on a business trip?",
+      "search_query": "What is the maximum I can claim for dinner on a business trip?",
+      "answer": "The maximum you can claim for dinner on a business trip is €45 [1][2].",
+      "retrieved": [
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 3,
+          "score": 0.632
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 3,
+          "score": 0.605
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 4,
+          "score": 0.47
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 4,
+          "score": 0.393
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 2,
+          "score": 0.377
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 5,
+          "score": 0.351
+        }
+      ],
+      "top_score": 0.632,
+      "latency_s": 1.26,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.231,
+      "semantic_similarity": 0.824,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant correctly states that the maximum claim for dinner on a business trip is €45, which matches the reference answer. The information is directly supported by the retrieved sources."
+    },
+    {
+      "id": "fin-mileage",
+      "category": "policy",
+      "question": "What is the mileage reimbursement rate for using my own car?",
+      "search_query": "What is the mileage reimbursement rate for using my own car?",
+      "answer": "The mileage reimbursement rate for using your own car for business travel is €0.30 per business kilometre in countries using the standard IronStore rate. The claim must show the date, origin, destination, purpose, and kilometres. Normal commuting is excluded [1].",
+      "retrieved": [
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 3,
+          "score": 0.471
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 3,
+          "score": 0.349
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 4,
+          "score": 0.342
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 3,
+          "score": 0.332
+        },
+        {
+          "title": "Sales Commission Plan",
+          "page": 2,
+          "score": 0.326
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 4,
+          "score": 0.325
+        }
+      ],
+      "top_score": 0.471,
+      "latency_s": 1.22,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.522,
+      "semantic_similarity": 0.871,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states the mileage reimbursement rate and the exclusion of normal commuting, matching the reference answer. It also includes details about what must be shown in the claim, which is supported by the retrieved source."
+    },
+    {
+      "id": "fin-hotel-preapproval",
+      "category": "policy",
+      "question": "When do I need pre-approval for hotel accommodation?",
+      "search_query": "When do I need pre-approval for hotel accommodation?",
+      "answer": "You need written pre-approval for hotel accommodation expected to exceed €200 per night, excluding taxes [1][2].",
+      "retrieved": [
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 2,
+          "score": 0.541
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 3,
+          "score": 0.522
+        },
+        {
+          "title": "Budget Approval Workflow",
+          "page": 3,
+          "score": 0.417
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 4,
+          "score": 0.391
+        },
+        {
+          "title": "Budget Approval Workflow",
+          "page": 2,
+          "score": 0.389
+        },
+        {
+          "title": "Contract Approval Workflow",
+          "page": 4,
+          "score": 0.385
+        }
+      ],
+      "top_score": 0.541,
+      "latency_s": 0.89,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.706,
+      "semantic_similarity": 0.882,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states that written pre-approval is required for hotel accommodation expected to exceed €200 per night, excluding taxes, which matches the reference answer. The information is directly supported by the retrieved sources."
+    },
+    {
+      "id": "it-password-length",
+      "category": "policy",
+      "question": "What are the password requirements?",
+      "search_query": "What are the password requirements?",
+      "answer": "The password requirements are as follows:\n\n1. **General Requirements**:\n   - Passwords must be unique and resistant to guessing.\n   - Passwords must not be reused across company and personal services.\n   - Passwords must not contain the user’s name, username, company name, product names, or common seasonal terms.\n   - Passwords must not appear in the 10,000 most commonly used passwords or known breach lists.\n\n2. **For Systems Supporting Modern Authentication**:\n   - Passwords must be at least 14 characters long.\n   - Passphrases of four or more unrelated words are recommended.\n\n3. **Storage and Sharing**:\n   - Passwords must be stored only in the approved password manager (currently 1Password Business).\n   - Passwords must never be shared through chat or email.\n\n4. **For Systems Not Supporting MFA**:\n   - A minimum password length of 16 characters is required.\n   - Maximum password age is 180 days, unless exceptions are approved by the CISO.\n\nThese requirements are outlined in the Password and Access Management Policy [1][2][3].",
+      "retrieved": [
+        {
+          "title": "Password and Access Management Policy",
+          "page": 2,
+          "score": 0.612
+        },
+        {
+          "title": "Password and Access Management Policy",
+          "page": 2,
+          "score": 0.61
+        },
+        {
+          "title": "IT Security Policy",
+          "page": 2,
+          "score": 0.545
+        },
+        {
+          "title": "Password and Access Management Policy",
+          "page": 4,
+          "score": 0.48
+        },
+        {
+          "title": "IT Security Policy",
+          "page": 6,
+          "score": 0.446
+        },
+        {
+          "title": "Password and Access Management Policy",
+          "page": 6,
+          "score": 0.426
+        }
+      ],
+      "top_score": 0.612,
+      "latency_s": 2.72,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.165,
+      "semantic_similarity": 0.771,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly includes the key password requirements, such as the minimum length for systems supporting modern authentication and those not supporting MFA. It also mentions storage and sharing guidelines. All information is supported by the retrieved sources."
+    },
+    {
+      "id": "it-stolen-laptop",
+      "category": "policy",
+      "question": "My company laptop was stolen. What should I do?",
+      "search_query": "My company laptop was stolen. What should I do?",
+      "answer": "You must report the lost device to the IT Service Desk within one hour of discovery. Additionally, IT may remotely lock or wipe the device. Do not disable security software, install unapproved software, or connect unknown USB devices to company equipment [5].",
+      "retrieved": [
+        {
+          "title": "Remote Work Policy",
+          "page": 4,
+          "score": 0.391
+        },
+        {
+          "title": "Password and Access Management Policy",
+          "page": 5,
+          "score": 0.369
+        },
+        {
+          "title": "Employee Handbook",
+          "page": 5,
+          "score": 0.356
+        },
+        {
+          "title": "Remote Work Policy",
+          "page": 4,
+          "score": 0.354
+        },
+        {
+          "title": "IT Security Policy",
+          "page": 3,
+          "score": 0.353
+        },
+        {
+          "title": "Product Catalog Laptop and Tablet Accessories",
+          "page": 35,
+          "score": 0.341
+        }
+      ],
+      "top_score": 0.391,
+      "latency_s": 1.19,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 0.2,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.646,
+      "semantic_similarity": 0.882,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states that the lost device should be reported to the IT Service Desk within one hour and that IT may remotely lock or wipe the device, which matches the reference answer. The additional advice about not disabling security software is accurate and grounded in the retrieved sources."
+    },
+    {
+      "id": "del-standard-domestic",
+      "category": "policy",
+      "question": "What is the standard domestic delivery time for in-stock products?",
+      "search_query": "What is the standard domestic delivery time for in-stock products?",
+      "answer": "The standard domestic delivery time for in-stock products shipped from an IronStore fulfilment centre is 2–4 working days after dispatch [1][2].",
+      "retrieved": [
+        {
+          "title": "Shipping and Delivery SLA Policy",
+          "page": 2,
+          "score": 0.588
+        },
+        {
+          "title": "Shipping and Delivery SLA Policy",
+          "page": 2,
+          "score": 0.546
+        },
+        {
+          "title": "Product Catalog Clothing and Apparel",
+          "page": 31,
+          "score": 0.482
+        },
+        {
+          "title": "Product Catalog Bicycles and Cycling Gear",
+          "page": 41,
+          "score": 0.464
+        },
+        {
+          "title": "Refund and Complaint Handling Policy",
+          "page": 4,
+          "score": 0.464
+        },
+        {
+          "title": "Customer Support Escalation Procedures",
+          "page": 3,
+          "score": 0.451
+        }
+      ],
+      "top_score": 0.588,
+      "latency_s": 1.14,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.444,
+      "semantic_similarity": 0.694,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states the standard domestic delivery time as 2–4 working days after dispatch, which matches the reference answer. It also correctly identifies that this applies to in-stock products shipped from an IronStore fulfilment centre. The answer is fully supported by the retrieved sources."
+    },
+    {
+      "id": "cs-return-window",
+      "category": "policy",
+      "question": "Within how many days can customers return unopened products?",
+      "search_query": "Within how many days can customers return unopened products?",
+      "answer": "Customers can return unopened and resalable goods within 30 calendar days of delivery, unless a longer legal or commercial period applies [3].",
+      "retrieved": [
+        {
+          "title": "Returns and Reverse Logistics Procedure",
+          "page": 2,
+          "score": 0.538
+        },
+        {
+          "title": "Terms of Service Overview",
+          "page": 4,
+          "score": 0.501
+        },
+        {
+          "title": "Refund and Complaint Handling Policy",
+          "page": 2,
+          "score": 0.49
+        },
+        {
+          "title": "Returns and Reverse Logistics Procedure",
+          "page": 1,
+          "score": 0.471
+        },
+        {
+          "title": "Refund and Complaint Handling Policy",
+          "page": 3,
+          "score": 0.461
+        },
+        {
+          "title": "Returns and Reverse Logistics Procedure",
+          "page": 2,
+          "score": 0.459
+        }
+      ],
+      "top_score": 0.538,
+      "latency_s": 1.2,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.415,
+      "semantic_similarity": 0.835,
+      "passed": true,
+      "correctness": 4,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states that unopened and resalable goods can be returned within 30 calendar days of delivery, which matches the reference answer. However, it omits the exceptions for personalized goods and opened sealed hygiene or beauty products. The answer is grounded as it is supported by the retrieved source [3]."
+    },
+    {
+      "id": "del-rma-validity",
+      "category": "policy",
+      "question": "How long is a return authorisation (RMA) valid?",
+      "search_query": "How long is a return authorisation (RMA) valid?",
+      "answer": "A return authorization number (RMA) is valid for 14 calendar days unless a different period is shown in the case [1].",
+      "retrieved": [
+        {
+          "title": "Returns and Reverse Logistics Procedure",
+          "page": 2,
+          "score": 0.444
+        },
+        {
+          "title": "Returns and Reverse Logistics Procedure",
+          "page": 2,
+          "score": 0.423
+        },
+        {
+          "title": "Returns and Reverse Logistics Procedure",
+          "page": 2,
+          "score": 0.413
+        },
+        {
+          "title": "Returns and Reverse Logistics Procedure",
+          "page": 5,
+          "score": 0.404
+        },
+        {
+          "title": "Data Privacy and GDPR Compliance Policy",
+          "page": 3,
+          "score": 0.394
+        },
+        {
+          "title": "Returns and Reverse Logistics Procedure",
+          "page": 6,
+          "score": 0.39
+        }
+      ],
+      "top_score": 0.444,
+      "latency_s": 1.0,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.842,
+      "semantic_similarity": 0.862,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states that the RMA is valid for 14 calendar days unless a different period is specified, which matches the reference answer. The information is directly supported by the retrieved source [1]."
+    },
+    {
+      "id": "sales-commission-standard",
+      "category": "policy",
+      "question": "What commission rate applies to standard product categories?",
+      "search_query": "What commission rate applies to standard product categories?",
+      "answer": "The commission rate for standard product categories is 1.0% of eligible net revenue [1].",
+      "retrieved": [
+        {
+          "title": "Sales Commission Plan",
+          "page": 2,
+          "score": 0.595
+        },
+        {
+          "title": "Sales Commission Plan",
+          "page": 5,
+          "score": 0.579
+        },
+        {
+          "title": "Sales Commission Plan",
+          "page": 3,
+          "score": 0.517
+        },
+        {
+          "title": "Sales Commission Plan",
+          "page": 2,
+          "score": 0.498
+        },
+        {
+          "title": "Sales Commission Plan",
+          "page": 1,
+          "score": 0.488
+        },
+        {
+          "title": "Sales Commission Plan",
+          "page": 4,
+          "score": 0.482
+        }
+      ],
+      "top_score": 0.595,
+      "latency_s": 1.18,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.474,
+      "semantic_similarity": 0.753,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states the commission rate for standard product categories as 1.0% of eligible net revenue, which matches the reference answer. The answer is grounded in the retrieved source [1]."
+    },
+    {
+      "id": "prod-tv-price-stock",
+      "category": "product",
+      "question": "How much does the Nordview NQ-55U7 TV cost and is it in stock?",
+      "search_query": "How much does the Nordview NQ-55U7 TV cost and is it in stock?",
+      "answer": "The Nordview NQ-55U7 55-inch 4K QLED Smart TV costs €649.00 and is currently in stock with 18 units available [1].",
+      "retrieved": [
+        {
+          "title": "Product Catalog Electronics",
+          "page": 1,
+          "score": 0.631
+        },
+        {
+          "title": "Product Catalog TV and Home Theater",
+          "page": 3,
+          "score": 0.545
+        },
+        {
+          "title": "Product Catalog TV and Home Theater",
+          "page": 6,
+          "score": 0.54
+        },
+        {
+          "title": "Product Catalog TV and Home Theater",
+          "page": 5,
+          "score": 0.521
+        },
+        {
+          "title": "Product Catalog TV and Home Theater",
+          "page": 2,
+          "score": 0.505
+        },
+        {
+          "title": "Product Catalog TV and Home Theater",
+          "page": 1,
+          "score": 0.496
+        }
+      ],
+      "top_score": 0.631,
+      "latency_s": 1.22,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.851,
+      "semantic_similarity": 0.983,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states the price and stock availability of the Nordview NQ-55U7 TV, matching the reference answer. All information is supported by the retrieved source [1]."
+    },
+    {
+      "id": "prod-dog-food",
+      "category": "product",
+      "question": "What is the price of the NordPaw Adult Dog Food Salmon & Oat 12 kg and where is it stored?",
+      "search_query": "What is the price of the NordPaw Adult Dog Food Salmon & Oat 12 kg and where is it stored?",
+      "answer": "The price of the NordPaw Adult Dog Food — Salmon & Oat, 12 kg is €49.90. It is stored in the warehouse located in DE-HAM, Hamburg, Germany [1].",
+      "retrieved": [
+        {
+          "title": "Product Catalog Pet Products",
+          "page": 2,
+          "score": 0.632
+        },
+        {
+          "title": "Product Catalog Pet Products",
+          "page": 1,
+          "score": 0.63
+        },
+        {
+          "title": "Product Catalog Pet Products",
+          "page": 3,
+          "score": 0.462
+        },
+        {
+          "title": "Product Catalog Pet Products",
+          "page": 9,
+          "score": 0.447
+        },
+        {
+          "title": "Product Catalog Pet Products",
+          "page": 1,
+          "score": 0.435
+        },
+        {
+          "title": "Product Catalog Food and Beverage Non-perishable",
+          "page": 1,
+          "score": 0.427
+        }
+      ],
+      "top_score": 0.632,
+      "latency_s": 1.39,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.678,
+      "semantic_similarity": 0.955,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly states the price and storage location of the NordPaw Adult Dog Food, matching the reference answer. All information is supported by the retrieved source [1]."
+    },
+    {
+      "id": "prod-discontinued-lantern",
+      "category": "discontinued",
+      "question": "Is the Heritage Candle Lantern still available?",
+      "search_query": "Is the Heritage Candle Lantern still available?",
+      "answer": "The Heritage Candle Lantern has been discontinued and is no longer available for sale [1].",
+      "retrieved": [
+        {
+          "title": "Product Catalog Seasonal and Holiday Decor",
+          "page": 19,
+          "score": 0.559
+        },
+        {
+          "title": "Product Catalog Candles and Home Fragrance",
+          "page": 45,
+          "score": 0.483
+        },
+        {
+          "title": "Product Catalog Candles and Home Fragrance",
+          "page": 29,
+          "score": 0.476
+        },
+        {
+          "title": "Product Catalog Outdoor and Camping",
+          "page": 31,
+          "score": 0.474
+        },
+        {
+          "title": "Product Catalog Candles and Home Fragrance",
+          "page": 44,
+          "score": 0.469
+        },
+        {
+          "title": "Product Catalog Candles and Home Fragrance",
+          "page": 46,
+          "score": 0.467
+        }
+      ],
+      "top_score": 0.559,
+      "latency_s": 1.04,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.474,
+      "semantic_similarity": 0.84,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant correctly states that the Heritage Candle Lantern has been discontinued and is no longer available, which matches the reference answer. The information is supported by the retrieved source [1]."
+    },
+    {
+      "id": "prod-discontinued-headphones",
+      "category": "discontinued",
+      "question": "Can I order new stock of the Auralis QuietMax 2 headphones?",
+      "search_query": "Can I order new stock of the Auralis QuietMax 2 headphones?",
+      "answer": "The Auralis QuietMax 2 headphones have been discontinued and there is no new stock available. They are retained in the catalog only for warranty, returns, and replacement-part reference [1].",
+      "retrieved": [
+        {
+          "title": "Product Catalog Audio and Headphones",
+          "page": 29,
+          "score": 0.572
+        },
+        {
+          "title": "Product Catalog Audio and Headphones",
+          "page": 1,
+          "score": 0.518
+        },
+        {
+          "title": "Product Catalog Audio and Headphones",
+          "page": 4,
+          "score": 0.499
+        },
+        {
+          "title": "Product Catalog Audio and Headphones",
+          "page": 7,
+          "score": 0.495
+        },
+        {
+          "title": "Product Catalog Electronics",
+          "page": 3,
+          "score": 0.486
+        },
+        {
+          "title": "Product Catalog Audio and Headphones",
+          "page": 25,
+          "score": 0.48
+        }
+      ],
+      "top_score": 0.572,
+      "latency_s": 1.53,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.73,
+      "semantic_similarity": 0.882,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant correctly states that the Auralis QuietMax 2 headphones have been discontinued and are only kept in the catalog for warranty, returns, and replacement-part reference. This matches the reference answer and is supported by the retrieved source."
+    },
+    {
+      "id": "outdated-office-monitor",
+      "category": "outdated",
+      "question": "How much is the IronStore 24\" Full HD Office Monitor?",
+      "search_query": "How much is the IronStore 24\" Full HD Office Monitor?",
+      "answer": "I could not find information about the IronStore 24\" Full HD Office Monitor in the company documents. You may want to ask your manager or check with the IT Service Desk for assistance.",
+      "retrieved": [
+        {
+          "title": "Product Catalog Gaming Accessories",
+          "page": 17,
+          "score": 0.563
+        },
+        {
+          "title": "Product Catalog Laptop and Tablet Accessories",
+          "page": 41,
+          "score": 0.514
+        },
+        {
+          "title": "Product Catalog Electronics",
+          "page": 6,
+          "score": 0.499
+        },
+        {
+          "title": "Product Catalog Computer Accessories",
+          "page": 9,
+          "score": 0.499
+        },
+        {
+          "title": "Product Catalog TV and Home Theater",
+          "page": 1,
+          "score": 0.492
+        },
+        {
+          "title": "Product Catalog Gaming Accessories",
+          "page": 17,
+          "score": 0.492
+        }
+      ],
+      "top_score": 0.563,
+      "latency_s": 1.08,
+      "should_refuse": true,
+      "refused": true,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": null,
+      "mrr": null,
+      "cited": null,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.226,
+      "semantic_similarity": 0.274,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant correctly stated that it could not find information about the IronStore 24\" Full HD Office Monitor in the current documents, aligning with the reference answer. It also suggested asking a manager or the IT Service Desk, which is a reasonable next step."
+    },
+    {
+      "id": "oos-capital",
+      "category": "out_of_scope",
+      "question": "What is the capital of France?",
+      "search_query": "What is the capital of France?",
+      "answer": "I couldn't find information about this in the company documents. Try rephrasing your question, or ask your manager or the relevant team (e.g. HR, Finance or the IT Service Desk).",
+      "retrieved": [],
+      "top_score": 0.183,
+      "latency_s": 0.3,
+      "should_refuse": true,
+      "refused": true,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": null,
+      "mrr": null,
+      "cited": null,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.24,
+      "semantic_similarity": 0.595,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant correctly stated that it couldn't find the information in the company documents, which aligns with the reference answer. It also suggested asking a relevant team, which is a reasonable suggestion."
+    },
+    {
+      "id": "oos-ceo-phone",
+      "category": "out_of_scope",
+      "question": "What is the CEO's personal mobile phone number?",
+      "search_query": "What is the CEO's personal mobile phone number?",
+      "answer": "I couldn't find information about this in the company documents. Try rephrasing your question, or ask your manager or the relevant team (e.g. HR, Finance or the IT Service Desk).",
+      "retrieved": [],
+      "top_score": 0.299,
+      "latency_s": 0.34,
+      "should_refuse": true,
+      "refused": true,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": null,
+      "mrr": null,
+      "cited": null,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.264,
+      "semantic_similarity": 0.517,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant correctly stated that it could not find the CEO's personal mobile phone number in the company documents, which aligns with the reference answer. It also appropriately suggested asking relevant teams, which is a reasonable suggestion."
+    },
+    {
+      "id": "oos-parental-bonus",
+      "category": "out_of_scope",
+      "question": "How large is the cash bonus IronStore pays employees when they have a baby?",
+      "search_query": "How large is the cash bonus IronStore pays employees when they have a baby?",
+      "answer": "I could not find information regarding a cash bonus for employees when they have a baby in the company documents. I suggest asking your manager or the People Operations department for clarification on this matter.",
+      "retrieved": [
+        {
+          "title": "Payroll Processing Procedures",
+          "page": 1,
+          "score": 0.449
+        },
+        {
+          "title": "Employee Handbook",
+          "page": 4,
+          "score": 0.449
+        },
+        {
+          "title": "Leave and Absence Policy",
+          "page": 1,
+          "score": 0.445
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 1,
+          "score": 0.444
+        },
+        {
+          "title": "Remote Work Policy",
+          "page": 4,
+          "score": 0.44
+        },
+        {
+          "title": "Employee Handbook",
+          "page": 1,
+          "score": 0.433
+        }
+      ],
+      "top_score": 0.449,
+      "latency_s": 1.21,
+      "should_refuse": true,
+      "refused": true,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": null,
+      "mrr": null,
+      "cited": null,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.328,
+      "semantic_similarity": 0.779,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant correctly stated that it could not find information about a cash bonus for new parents and suggested asking HR or People Operations, which aligns with the reference answer. The response is grounded as it does not make any unsupported claims."
+    },
+    {
+      "id": "follow-mileage-dinner",
+      "category": "follow_up",
+      "question": "And how much can I claim for dinner?",
+      "search_query": "What is the maximum amount I can claim for dinner expenses?",
+      "answer": "You can claim up to €45 for dinner during approved business travel [1][2].",
+      "retrieved": [
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 3,
+          "score": 0.498
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 3,
+          "score": 0.433
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 4,
+          "score": 0.403
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 5,
+          "score": 0.324
+        },
+        {
+          "title": "Expense Reimbursement Policy",
+          "page": 4,
+          "score": 0.322
+        }
+      ],
+      "top_score": 0.498,
+      "latency_s": 2.07,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.4,
+      "semantic_similarity": 0.856,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant correctly states that dinner during approved business travel can be reimbursed up to €45, which matches the reference answer. The information is directly supported by the retrieved sources."
+    },
+    {
+      "id": "follow-remote-warehouse",
+      "category": "follow_up",
+      "question": "Does it also apply to warehouse staff?",
+      "search_query": "Does the remote work policy also apply to warehouse staff?",
+      "answer": "No, the remote work policy does not normally cover warehouse, delivery, retail-support, or other roles requiring physical presence [3].",
+      "retrieved": [
+        {
+          "title": "Warehouse Operations Manual",
+          "page": 6,
+          "score": 0.538
+        },
+        {
+          "title": "Remote Work Policy",
+          "page": 1,
+          "score": 0.531
+        },
+        {
+          "title": "Remote Work Policy",
+          "page": 1,
+          "score": 0.517
+        },
+        {
+          "title": "Remote Work Policy",
+          "page": 4,
+          "score": 0.517
+        },
+        {
+          "title": "Employee Handbook",
+          "page": 1,
+          "score": 0.506
+        },
+        {
+          "title": "Employee Handbook",
+          "page": 2,
+          "score": 0.494
+        }
+      ],
+      "top_score": 0.536,
+      "latency_s": 1.78,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 0.5,
+      "cited": true,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.878,
+      "semantic_similarity": 0.955,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant correctly states that the remote work policy does not normally cover warehouse staff, aligning with the reference answer. The response is grounded in the retrieved source [3]."
+    },
+    {
+      "id": "follow-tv-location",
+      "category": "follow_up",
+      "question": "Where is it stored in the warehouse?",
+      "search_query": "Where is the Nordview NQ-55U7 TV stored in the warehouse?",
+      "answer": "The Nordview NQ-55U7 TV is stored in the Rotterdam DC, Aisle E12, Bin 04.",
+      "retrieved": [
+        {
+          "title": "Product Catalog Electronics",
+          "page": 1,
+          "score": 0.585
+        },
+        {
+          "title": "Product Catalog TV and Home Theater",
+          "page": 6,
+          "score": 0.495
+        },
+        {
+          "title": "Product Catalog TV and Home Theater",
+          "page": 26,
+          "score": 0.481
+        },
+        {
+          "title": "Product Catalog TV and Home Theater",
+          "page": 3,
+          "score": 0.477
+        },
+        {
+          "title": "Product Catalog Mobile Phone Accessories",
+          "page": 33,
+          "score": 0.462
+        },
+        {
+          "title": "Product Catalog TV and Home Theater",
+          "page": 1,
+          "score": 0.458
+        }
+      ],
+      "top_score": 0.585,
+      "latency_s": 1.82,
+      "should_refuse": false,
+      "refused": false,
+      "refusal_ok": true,
+      "forbidden_found": [],
+      "retrieval_hit": 1,
+      "mrr": 1.0,
+      "cited": false,
+      "keyword_recall": 1.0,
+      "rouge_l": 0.857,
+      "semantic_similarity": 0.913,
+      "passed": true,
+      "correctness": 5,
+      "grounded": true,
+      "judge_reasoning": "The assistant's answer correctly identifies the storage location of the Nordview NQ-55U7 as Rotterdam DC, Aisle E12, Bin 04, which matches the reference answer. The information is directly supported by the retrieved source [1]."
+    }
+  ]
+}

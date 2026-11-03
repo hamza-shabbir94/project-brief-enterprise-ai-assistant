@@ -22,12 +22,17 @@ export default function App() {
     setMessages((previous) => [...previous, { id: crypto.randomUUID(), ...message }]);
   }
 
-  async function send(question) {
+  // `previous` is the conversation before this question. It's sent along so the
+  // backend can understand follow-ups ("and for contractors?"). Failed answers are left out.
+  async function send(question, previous = messages) {
     if (loading) return;
+    const history = previous
+      .filter((message) => !message.error)
+      .map(({ role, content }) => ({ role, content }));
     addMessage({ role: "user", content: question });
     setLoading(true);
     try {
-      const data = await askQuestion(question);
+      const data = await askQuestion(question, history);
       addMessage({ role: "assistant", content: data.answer, sources: data.sources });
     } catch (error) {
       addMessage({ role: "assistant", error: error.message, question });
@@ -38,8 +43,9 @@ export default function App() {
 
   function retry(failedMessage) {
     // Remove the failed question and its error, then ask again.
-    setMessages((previous) => previous.slice(0, -2));
-    send(failedMessage.question);
+    const previous = messages.slice(0, -2);
+    setMessages(previous);
+    send(failedMessage.question, previous);
   }
 
   return (

@@ -9,15 +9,19 @@ OpenAI and Pinecone. It has a React + Vite frontend and a FastAPI backend, deplo
  ingest.py (run once, on your laptop)         every question
  ────────────────────────────────────         ──────────────
  83 PDFs                                      React page (frontend/)
-   │  PyPDFLoader                                │  POST /api/chat {"question": ...}
+   │  PyPDFLoader                                │  POST /api/chat {"question", "history"}
    ▼                                             ▼
  text  ──split──▶  2,486 chunks               FastAPI (api/index.py)
    │  + metadata (title, page, department,       │  calls ask() in rag.py
    │    last_reviewed, outdated)                 ▼
-   ▼                                          Pinecone: find the 6 most similar chunks
- OpenAI embeddings ──▶ Pinecone index            │  (skip outdated documents)
+   ▼                                          follow-up? rewrite it as a standalone question
+ OpenAI embeddings ──▶ Pinecone index            │  ("and for contractors?" → "...policy for contractors?")
                                                  ▼
-                                              prompt = rules + numbered chunks + question
+                                              Pinecone: find the 6 most similar chunks
+                                                 │  (skip outdated documents and weak matches;
+                                                 │   none left → "I couldn't find it", no LLM call)
+                                                 ▼
+                                              prompt = rules + numbered chunks + history + question
                                                  │
                                                  ▼
                                               gpt-4o-mini ──▶ answer with [1][2] citations
@@ -50,6 +54,13 @@ project-brief-enterprise-ai-assistant/
 ├── vector_store.py           connects to Pinecone (or Chroma)
 ├── ingest.py                 PDFs → chunks → embeddings → Pinecone
 ├── config.py                 all settings in one place
+├── evaluation/               measures answer quality (see "Evaluation" below)
+│   ├── dataset.json          26 test questions with reference answers
+│   ├── evaluate.py           runs them through the assistant and scores them
+│   ├── metrics.py            retrieval, keyword, refusal, ROUGE-L, similarity scores
+│   ├── judge.py              LLM-as-a-judge grading (correctness, groundedness)
+│   ├── test_metrics.py       offline tests: `python -m pytest evaluation`
+│   └── results/              one JSON + Markdown report per run
 ├── streamlit_app.py          Streamlit prototype (local only, handy for quick tests)
 ├── requirements.txt          backend packages (what Vercel installs)
 ├── requirements-dev.txt      + packages for ingestion and Streamlit (local work)
@@ -62,7 +73,11 @@ project-brief-enterprise-ai-assistant/
 | Method | Path | Body | Returns |
 |---|---|---|---|
 | `GET` | `/api/health` | — | `{"status": "ok"}` |
-| `POST` | `/api/chat` | `{"question": "How do I request time off?"}` | `{"answer": "...", "sources": [{"number", "title", "page", "department", "last_reviewed", "excerpt"}]}` |
+| `POST` | `/api/chat` | `{"question": "And for contractors?", "history": [{"role": "user", "content": "..."}, {"role": "assistant", "content": "..."}]}` | `{"answer": "...", "search_query": "...", "sources": [{"number", "title", "page", "department", "last_reviewed", "score", "excerpt"}]}` |
+
+`history` is optional: the earlier messages of the conversation, so follow-up questions work. The
+React app and the Streamlit app send it automatically. `search_query` is the follow-up rewritten as
+a standalone question (what was actually searched), and `score` is each chunk's similarity (0–1).
 
 When the backend is running locally, FastAPI also gives you interactive docs at
 http://localhost:8000/docs, where you can try the API in the browser.
@@ -310,7 +325,7 @@ While inspecting the documents I found:
 | Some products appear twice in a catalog (e.g. once active, once "discontinued") | The prompt tells the LLM to flag discontinued products and name the replacement SKU |
 | Products and sections continue across page breaks | Pages are joined before splitting, so chunks don't stop at page edges. Page numbers are still tracked for citations |
 | The PDFs use an invisible control character as bullet points | Replaced with `•` during ingestion |
-| Questions the documents can't answer | The prompt requires answers only from the sources, with "I couldn't find it", and a suggestion of who to ask, instead of guessing. The UI then shows "No sources used" |
+| Questions the documents can't answer | Chunks with a similarity below `MIN_RELEVANCE` (0.30) are dropped. If none are left (e.g. "What is the capital of France?"), the assistant answers "I couldn't find it" without calling the LLM. Otherwise the prompt requires answers only from the sources, with "I couldn't find it" and a suggestion of who to ask, instead of guessing. The UI then shows "No sources used" |
 | The same file added twice | Identical chunks are de-duplicated before embedding |
 
 ## Example questions
@@ -321,12 +336,84 @@ While inspecting the documents I found:
 - How much does the Nordview NQ-55U7 TV cost and is it in stock?
 - Is the Heritage Candle Lantern still available?  → *discontinued*
 - How much is the IronStore 24" Full HD Office Monitor?  → *only in the 2021 catalog, so "not found"*
+- What is the mileage reimbursement rate? → then: *And how much can I claim for dinner?*  → *follow-up*
+
+## Evaluation
+
+`evaluation/` checks the assistant automatically on 26 test questions, so you can tell whether a
+change (prompt, chunk size, `TOP_K`, model, ...) actually made it better.
+
+```bash
+python -m evaluation.evaluate              # all questions + LLM judge (~$0.05, about a minute)
+python -m evaluation.evaluate --no-judge   # without the judge: cheaper, rule-based scores only
+python -m evaluation.evaluate --category follow_up
+python -m evaluation.evaluate --ids fin-mileage,oos-capital
+python -m pytest evaluation                # offline tests of the scoring code (free)
+```
+
+**The test set** (`dataset.json`) was written by reading the PDFs. Each case has a question, a
+reference answer, the document(s) it should come from, and key facts that must (or must not)
+appear in the answer. It covers the tricky parts of the data on purpose:
+
+| Category | Cases | What it checks |
+|---|---:|---|
+| `policy` | 15 | HR, Finance, IT, Deliveries, Customer support and Sales procedures |
+| `product` | 2 | Prices, stock and warehouse locations from the catalogs |
+| `discontinued` | 2 | Discontinued products are flagged as such |
+| `outdated` | 1 | A product only in the 2021 catalog is "not found", and its old price never appears |
+| `out_of_scope` | 3 | Questions the documents can't answer get "I couldn't find it", not a guess |
+| `follow_up` | 3 | Questions that only make sense with the earlier conversation |
+
+**The metrics**, from cheap to expensive (the types of evals from the course):
+
+| Metric | Type | Meaning |
+|---|---|---|
+| Retrieval hit rate | Code-based | Was a chunk from the right document retrieved? |
+| Retrieval MRR | Code-based | How high was it ranked? 1 = first, 0.5 = second, ... |
+| Keyword recall | Code-based | Share of the key facts (e.g. "€45", "14 characters") found in the answer |
+| Refusal accuracy | Code-based | Said "I couldn't find it" exactly when it should have |
+| Citation rate | Code-based | Answers that cite their sources like [1] |
+| ROUGE-L | Reference-based, lexical | Word overlap with the reference answer |
+| Semantic similarity | Reference-based, embeddings | Cosine similarity between answer and reference embeddings |
+| Judge correctness (1–5) | LLM-as-a-judge | `gpt-4o` compares the answer with the reference |
+| Judge grounded | LLM-as-a-judge | `gpt-4o` checks every fact is in the retrieved sources (no hallucination) |
+
+A case **passes** when the key facts are there, nothing forbidden appears, the refusal behaviour is
+right, and the judge gives correctness ≥ 4 and grounded = yes. ROUGE-L and similarity are only
+reported, because a correct answer worded differently from the reference scores low on them.
+
+**Results** are saved in `evaluation/results/` as JSON (every answer and score) and a Markdown
+report (summary, per-category table, and the answers of the failed cases with the judge's reasoning).
+Each run is compared with the previous run on the same questions:
+
+Current results (November 2026, `gpt-4o-mini` answering, `gpt-4o` judging):
+
+| Metric | Score |
+|---|---:|
+| Pass rate | 1.00 (26/26) |
+| Retrieval hit rate / MRR | 1.00 / 0.94 |
+| Keyword recall | 1.00 |
+| Refusal accuracy | 1.00 |
+| Citation rate | 0.95 |
+| ROUGE-L | 0.54 |
+| Semantic similarity | 0.81 |
+| Judge correctness (1–5) | 4.96 |
+| Judge grounded | 1.00 |
+| Avg. latency | 1.6 s |
+
+A perfect pass rate on 26 questions means the test set is now too easy to catch regressions on
+its own. Add harder cases (multi-document questions, ambiguous wording, duplicated products) as
+you find them.
+
+The report also shows the best similarity score of answerable vs. unanswerable questions, which
+helps choose `MIN_RELEVANCE` in `config.py`. To add a test, add an entry to `dataset.json`
+(`python -m pytest evaluation` checks that it is well-formed). `--fail-under 0.9` makes the command
+fail when the pass rate drops, so it can run in CI.
 
 ## Ideas for adding complexity later
 
-1. **Conversation memory.** Right now every question stands alone. Send the last few messages
-   with each request and rewrite follow-ups ("and for contractors?") into standalone questions
-   before retrieval.
+1. ~~**Conversation memory.**~~ ✅ Done: the last `HISTORY_MESSAGES` messages are sent with each
+   request and follow-ups are rewritten into standalone questions before retrieval.
 2. **Streaming answers.** Show the answer word by word as it's generated (FastAPI
    `StreamingResponse` + LangChain `.stream()`), like ChatGPT.
 3. **Login.** Only let IronStore employees in, e.g. with Clerk, Auth0 or Vercel's deployment protection.
@@ -337,6 +424,6 @@ While inspecting the documents I found:
    hybrid search out of the box. Add it as a third option in `vector_store.py` with
    `langchain-elasticsearch` (`ElasticsearchStore`).
 6. **Smarter chunking for catalogs.** Split on each product (`SKU:`) so one chunk = one product.
-7. **Evaluation.** A list of test questions with expected answers, scored automatically,
-   so you can measure whether a change actually helps.
+7. ~~**Evaluation.**~~ ✅ Done: see [Evaluation](#evaluation). Next step: grow the test set,
+   e.g. with questions real employees ask.
 8. **Agent with tools.** E.g. a "check stock" tool or "create IT ticket" tool alongside RAG.

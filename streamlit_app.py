@@ -47,13 +47,15 @@ for message in st.session_state.messages:
             show_sources(message["sources"])
 
 if question := st.chat_input("Ask a question..."):
+    # Earlier messages, so follow-up questions ("and for contractors?") work.
+    history = [{"role": m["role"], "content": m["content"]} for m in st.session_state.messages]
     st.session_state.messages.append({"role": "user", "content": question})
     with st.chat_message("user"):
         st.markdown(question)
 
     with st.chat_message("assistant"):
         with st.spinner("Searching company documents..."):
-            result = ask(question)
+            result = ask(question, history)
         st.markdown(result["answer"])
         show_sources(result["sources"])
 

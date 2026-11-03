@@ -1,0 +1,224 @@
+[
+  {
+    "id": "hr-remote-office-days",
+    "category": "policy",
+    "question": "How many days per week are hybrid employees expected to be in the office?",
+    "reference_answer": "Most eligible hybrid employees are expected to attend their designated office an average of two days per week. Teams may set a higher requirement during peak trading periods, operational changes or major projects.",
+    "expected_sources": ["Remote Work Policy"],
+    "must_include": ["two|2"]
+  },
+  {
+    "id": "hr-remote-core-hours",
+    "category": "policy",
+    "question": "What are the core hours for remote employees?",
+    "reference_answer": "Core hours are 10:00 to 15:00 local time, Monday to Friday. Customer and operational teams follow their team rota.",
+    "expected_sources": ["Remote Work Policy"],
+    "must_include": ["10:00|10am|10 am", "15:00|3pm|3 pm"]
+  },
+  {
+    "id": "hr-leave-where",
+    "category": "policy",
+    "question": "How do I request time off?",
+    "reference_answer": "Submit the leave request in advance through PeopleHub, IronStore's HR system. Leave is only confirmed once your line manager approves it. Requests should be made at least 10 calendar days before leave of one to five working days and at least 20 calendar days before longer leave.",
+    "expected_sources": ["Leave and Absence Policy"],
+    "must_include": ["PeopleHub"]
+  },
+  {
+    "id": "hr-leave-notice-long",
+    "category": "policy",
+    "question": "How much notice do I need to give for annual leave longer than five working days?",
+    "reference_answer": "Requests for leave exceeding five working days must be submitted through PeopleHub at least 20 calendar days in advance.",
+    "expected_sources": ["Leave and Absence Policy"],
+    "must_include": ["20"]
+  },
+  {
+    "id": "hr-leave-manager-response",
+    "category": "policy",
+    "question": "How quickly should a manager respond to an annual leave request?",
+    "reference_answer": "Managers should respond to annual leave requests within five working days.",
+    "expected_sources": ["Leave and Absence Policy"],
+    "must_include": ["five|5"]
+  },
+  {
+    "id": "fin-expense-deadline",
+    "category": "policy",
+    "question": "What is the deadline for submitting an expense claim?",
+    "reference_answer": "Expense claims must be submitted in SpendHub within 30 calendar days of the expense date. Month-end claims should be submitted by the third working day of the following month, and claims more than 90 days late need Finance approval.",
+    "expected_sources": ["Expense Reimbursement Policy"],
+    "must_include": ["30"]
+  },
+  {
+    "id": "fin-dinner-limit",
+    "category": "policy",
+    "question": "What is the maximum I can claim for dinner on a business trip?",
+    "reference_answer": "Dinner during approved business travel can be reimbursed up to €45.",
+    "expected_sources": ["Expense Reimbursement Policy"],
+    "must_include": ["45"]
+  },
+  {
+    "id": "fin-mileage",
+    "category": "policy",
+    "question": "What is the mileage reimbursement rate for using my own car?",
+    "reference_answer": "Mileage is reimbursed at the applicable national rate published by Finance, currently €0.30 per business kilometre in countries using the standard IronStore rate. Normal commuting is excluded.",
+    "expected_sources": ["Expense Reimbursement Policy"],
+    "must_include": ["0.30|0,30"]
+  },
+  {
+    "id": "fin-hotel-preapproval",
+    "category": "policy",
+    "question": "When do I need pre-approval for hotel accommodation?",
+    "reference_answer": "Written pre-approval is required before booking accommodation expected to exceed €200 per night, excluding taxes.",
+    "expected_sources": ["Expense Reimbursement Policy"],
+    "must_include": ["200"]
+  },
+  {
+    "id": "it-password-length",
+    "category": "policy",
+    "question": "What are the password requirements?",
+    "reference_answer": "Passwords must be at least 14 characters long. MFA is mandatory for externally accessible systems and administrative access; systems that cannot support MFA must enforce a minimum 16-character password. Routine password changes are not required for standard accounts when MFA is enabled.",
+    "expected_sources": ["Password and Access Management Policy"],
+    "must_include": ["14"]
+  },
+  {
+    "id": "it-stolen-laptop",
+    "category": "policy",
+    "question": "My company laptop was stolen. What should I do?",
+    "reference_answer": "Report the lost or stolen device to the Service Desk within one hour of discovery. IT may remotely lock or wipe the device.",
+    "expected_sources": ["IT Security Policy"],
+    "must_include": ["Service Desk", "one hour|1 hour|60 minutes"]
+  },
+  {
+    "id": "del-standard-domestic",
+    "category": "policy",
+    "question": "What is the standard domestic delivery time for in-stock products?",
+    "reference_answer": "Standard domestic delivery is 2–4 working days after dispatch, with a dispatch target within one working day of payment approval.",
+    "expected_sources": ["Shipping and Delivery SLA Policy"],
+    "must_include": ["2–4|2-4|2 to 4|two to four"]
+  },
+  {
+    "id": "cs-return-window",
+    "category": "policy",
+    "question": "Within how many days can customers return unopened products?",
+    "reference_answer": "Unless a longer legal or commercial period applies, unopened and resalable goods are accepted within 30 calendar days of delivery. Personalised goods and opened sealed hygiene or beauty products are exceptions.",
+    "expected_sources": ["Refund and Complaint Handling Policy", "Returns and Reverse Logistics Procedure"],
+    "must_include": ["30"]
+  },
+  {
+    "id": "del-rma-validity",
+    "category": "policy",
+    "question": "How long is a return authorisation (RMA) valid?",
+    "reference_answer": "The RMA is valid for 14 calendar days unless a different period is shown in the case.",
+    "expected_sources": ["Returns and Reverse Logistics Procedure"],
+    "must_include": ["14"]
+  },
+  {
+    "id": "sales-commission-standard",
+    "category": "policy",
+    "question": "What commission rate applies to standard product categories?",
+    "reference_answer": "Standard categories earn 1.0% of eligible net revenue (strategic or high-margin categories 1.25%, low-margin or clearance categories 0.50%).",
+    "expected_sources": ["Sales Commission Plan"],
+    "must_include": ["1.0%|1%|1.0 %"]
+  },
+  {
+    "id": "prod-tv-price-stock",
+    "category": "product",
+    "question": "How much does the Nordview NQ-55U7 TV cost and is it in stock?",
+    "reference_answer": "The Nordview NQ-55U7 55-inch 4K QLED Smart TV (SKU TV-NDV-NQ55U7) costs €649.00 and is in stock with 18 units.",
+    "expected_sources": ["Product Catalog Electronics"],
+    "must_include": ["649", "18"]
+  },
+  {
+    "id": "prod-dog-food",
+    "category": "product",
+    "question": "What is the price of the NordPaw Adult Dog Food Salmon & Oat 12 kg and where is it stored?",
+    "reference_answer": "The NordPaw Adult Dog Food — Salmon & Oat, 12 kg (SKU IS-PET-DOG-1001) costs €49.90, is in stock, and is stored in the DE-HAM warehouse in Hamburg, Germany.",
+    "expected_sources": ["Product Catalog Pet Products"],
+    "must_include": ["49.90|49,90", "Hamburg|DE-HAM"]
+  },
+  {
+    "id": "prod-discontinued-lantern",
+    "category": "discontinued",
+    "question": "Is the Heritage Candle Lantern still available?",
+    "reference_answer": "No. The Heritage Candle Lantern, Antique Brass (SKU IS-SHD-LAN-2302) has been discontinued, with no replenishment and no replacement stock planned.",
+    "expected_sources": ["Product Catalog Seasonal and Holiday Decor"],
+    "must_include": ["discontinued"]
+  },
+  {
+    "id": "prod-discontinued-headphones",
+    "category": "discontinued",
+    "question": "Can I order new stock of the Auralis QuietMax 2 headphones?",
+    "reference_answer": "No. The Auralis QuietMax 2 (SKU IS-AUD-OHR-0045) has been discontinued and there is no new stock. It is kept in the catalog only for warranty, returns and replacement-part reference.",
+    "expected_sources": ["Product Catalog Audio and Headphones"],
+    "must_include": ["discontinued"]
+  },
+  {
+    "id": "outdated-office-monitor",
+    "category": "outdated",
+    "question": "How much is the IronStore 24\" Full HD Office Monitor?",
+    "reference_answer": "This product only appears in the outdated 2021 catalog, so the assistant should say it could not find it in the current documents rather than quote the old price.",
+    "expected_sources": [],
+    "should_refuse": true,
+    "must_not_include": ["149.99"]
+  },
+  {
+    "id": "oos-capital",
+    "category": "out_of_scope",
+    "question": "What is the capital of France?",
+    "reference_answer": "This is not covered by the company documents; the assistant should say it could not find the answer.",
+    "expected_sources": [],
+    "should_refuse": true,
+    "must_not_include": ["Paris"]
+  },
+  {
+    "id": "oos-ceo-phone",
+    "category": "out_of_scope",
+    "question": "What is the CEO's personal mobile phone number?",
+    "reference_answer": "This is not in the company documents; the assistant should say it could not find it and not invent a number.",
+    "expected_sources": [],
+    "should_refuse": true
+  },
+  {
+    "id": "oos-parental-bonus",
+    "category": "out_of_scope",
+    "question": "How large is the cash bonus IronStore pays employees when they have a baby?",
+    "reference_answer": "The documents do not describe a cash bonus for new parents; the assistant should say it could not find it and suggest asking HR / People Operations.",
+    "expected_sources": [],
+    "should_refuse": true
+  },
+  {
+    "id": "follow-mileage-dinner",
+    "category": "follow_up",
+    "history": [
+      {"role": "user", "content": "What is the mileage reimbursement rate?"},
+      {"role": "assistant", "content": "Mileage is reimbursed at €0.30 per business kilometre in countries using the standard IronStore rate [1]."}
+    ],
+    "question": "And how much can I claim for dinner?",
+    "reference_answer": "Dinner during approved business travel can be reimbursed up to €45.",
+    "expected_sources": ["Expense Reimbursement Policy"],
+    "must_include": ["45"]
+  },
+  {
+    "id": "follow-remote-warehouse",
+    "category": "follow_up",
+    "history": [
+      {"role": "user", "content": "What is our remote work policy?"},
+      {"role": "assistant", "content": "IronStore supports remote and hybrid work where compatible with the role. Most hybrid employees attend the office about two days per week, and core hours are 10:00–15:00 [1]."}
+    ],
+    "question": "Does it also apply to warehouse staff?",
+    "reference_answer": "Normally no. The Remote Work Policy does not normally cover warehouse, delivery, retail-support or other roles that require physical presence.",
+    "expected_sources": ["Remote Work Policy"],
+    "must_include": ["warehouse"]
+  },
+  {
+    "id": "follow-tv-location",
+    "category": "follow_up",
+    "history": [
+      {"role": "user", "content": "How much does the Nordview NQ-55U7 TV cost?"},
+      {"role": "assistant", "content": "The Nordview NQ-55U7 55-inch 4K QLED Smart TV costs €649.00 [1]."}
+    ],
+    "question": "Where is it stored in the warehouse?",
+    "reference_answer": "The Nordview NQ-55U7 is stored at Rotterdam DC, Aisle E12, Bin 04.",
+    "expected_sources": ["Product Catalog Electronics"],
+    "must_include": ["Rotterdam", "E12"]
+  }
+]

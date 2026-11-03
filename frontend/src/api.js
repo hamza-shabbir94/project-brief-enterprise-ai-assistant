@@ -1,10 +1,11 @@
 // All communication with the backend lives here.
 
-export async function askQuestion(question) {
+// history: earlier messages [{ role: "user" | "assistant", content }], so follow-up questions work.
+export async function askQuestion(question, history = []) {
   const response = await fetch("/api/chat", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ question }),
+    body: JSON.stringify({ question, history }),
   });
 
   if (!response.ok) {
@@ -18,5 +19,5 @@ export async function askQuestion(question) {
     throw new Error(message);
   }
 
-  return response.json(); // { answer, sources }
+  return response.json(); // { answer, sources, search_query }
 }
